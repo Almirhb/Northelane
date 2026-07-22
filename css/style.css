@@ -336,3 +336,20 @@ footer{background:#070911;color:var(--text-mute-light);padding:50px 0 26px;}
   .terminal-line{animation:none;opacity:1;}
   .eyebrow .dot{animation:none;}
 }
+.portfolio-thumb--scroll {
+  overflow: hidden;
+  position: relative;
+}
+
+.portfolio-thumb--scroll img {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  top: 0;
+  transition: top 6s ease-in-out;
+}
+
+.portfolio-thumb--scroll:hover img {
+  top: calc(-1 * (var(--scroll-distance, 400px)));
+}
