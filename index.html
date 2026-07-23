@@ -8,6 +8,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V34BCMV8Z7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-V34BCMV8Z7');
+</script>
+
 </head>
 <body>
 
@@ -24,7 +34,7 @@
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
     </div>
-    <a href="#contact" class="nav-cta">Book a call</a>
+    <a href="#contact" class="nav-cta" data-track="book_call_nav">Book a call</a>
   </div>
 </nav>
 
@@ -37,8 +47,8 @@
       <h1>Digital presence, built to <span class="accent">an unmistakably premium standard</span></h1>
       <p class="sub">We design and engineer websites, web applications, and digital solutions using Python, Django, React, Java, JavaScript, and CSS — the same technologies trusted by the world's leading platforms. We also integrate the latest AI-assisted tools into our workflow, giving you maximum speed without ever compromising on craft.</p>
       <div class="btn-row">
-        <a href="#contact" class="btn btn-primary">Start a project</a>
-        <a href="#contact" class="btn btn-ghost">Book a free consultation</a>
+        <a href="#contact" class="btn btn-primary" data-track="start_project_hero">Start a project</a>
+        <a href="#contact" class="btn btn-ghost" data-track="book_consult_hero">Book a free consultation</a>
       </div>
       <div class="trust-row">
         <div><div><b>2–4 wks</b>average delivery</div></div>
@@ -269,7 +279,7 @@
           <li>Basic SEO</li>
           <li>Mobile optimization</li>
         </ul>
-        <a href="#contact" class="btn btn-ghost" style="justify-content:center;">Get started</a>
+        <a href="#contact" class="btn btn-ghost" style="justify-content:center;" data-track="get_started_starter">Get started</a>
       </div>
       <div class="price-card featured reveal">
         <div class="featured-badge">Most popular</div>
@@ -283,7 +293,7 @@
           <li>Custom design</li>
           <li>Performance optimization</li>
         </ul>
-        <a href="#contact" class="btn btn-primary" style="justify-content:center;">Get started</a>
+        <a href="#contact" class="btn btn-primary" style="justify-content:center;" data-track="get_started_business">Get started</a>
       </div>
       <div class="price-card reveal">
         <div class="plan-name">Premium digital solution</div>
@@ -295,7 +305,7 @@
           <li>Advanced automation</li>
           <li>Priority support</li>
         </ul>
-        <a href="#contact" class="btn btn-ghost" style="justify-content:center;">Talk to us</a>
+        <a href="#contact" class="btn btn-ghost" style="justify-content:center;" data-track="talk_to_us_premium">Talk to us</a>
       </div>
     </div>
 
@@ -464,6 +474,9 @@
           status.textContent = "Thanks — we'll reply within one business day.";
           status.style.display = 'block';
           this.reset();
+          if (typeof gtag === 'function') {
+            gtag('event', 'generate_lead', { event_category: 'form', event_label: 'contact_form_submit' });
+          }
         } else {
           btn.textContent = 'Send message';
           status.textContent = 'Something went wrong, please email us directly.';
@@ -526,5 +539,21 @@
 </footer>
 
 <script src="js/main.js"></script>
+
+<!-- GA4 click tracking for key CTAs -->
+<script>
+  document.querySelectorAll('[data-track]').forEach(function(el){
+    el.addEventListener('click', function(){
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          event_category: 'cta',
+          event_label: el.getAttribute('data-track')
+        });
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
+
